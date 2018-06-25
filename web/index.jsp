@@ -1,23 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Menu Principal</title>
-<link rel="icon" href="images/icon.ico" />
-</head>
-
-<body>
-	<div id="headerbg">
-		<div id="headerblank">			
-			<div id="header">
-				<div id="menu">
-					<ul>
-						<li><a href="ClienteJSP.jsp" class="menu">Listar Clientes</a></li>
-					</ul>
-				</div>				
-				<br/>											
-			</div>
-		</div>
-	</div>
-</body>
+<!DOCTYPE html>
+<html>
+	<link rel="stylesheet" href="./bootstrap-4.1.1-dist/css/bootstrap.css">
+	<link rel="stylesheet" href="./bootstrap-4.1.1-dist/css/signin.css">
+	<script type='text/javascript' src='./bootstrap-4.1.1-dist/js/jquery.js'></script>
+	<script type='text/javascript' src='./bootstrap-4.1.1-dist/js/bootstrap.js'></script>
+	<body class="text-center">
+		<form class="form-signin" action="Login" method="GET">
+			<h1 class="h3 mb-3">Please Sign In</h1>
+			<label for="input" class="sr-only">D.N.I.</label>
+			<input type="text" id="input" class="form-control" name="dni" placeholder="DNI" required="" autofocus="">
+			<button class="btn btn-success btn-lg btn-block" type="submit">Sign In</button>
+			<p class="mt-5 mb-3">TP AD Grupo 2 º 2017-2018 Associated with Anonymous</p>
+		</form>
+	</body>
 </html>

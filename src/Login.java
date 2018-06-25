@@ -19,7 +19,7 @@ public class Login extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer DNI = Integer.valueOf(request.getParameter("DNI"));
+		Integer DNI = Integer.valueOf(request.getParameter("dni"));
 		ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
 
 		if (dada != null){
