@@ -1,6 +1,7 @@
 import delegates.ClienteDelegate;
 import dtos.ClienteDTO;
 import exceptions.ClienteNotFoundException;
+import utils.SessionVars;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,15 +26,21 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			request.getSession().setAttribute("error", null);
+			setSessionAttrNull(request);
 			Integer DNI = Integer.valueOf(request.getParameter("dni"));
 			ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
-			request.getSession().setAttribute("cliente", dada);
+			request.getSession().setAttribute(SessionVars.CLIENTE.toString(), dada);
 			request.getRequestDispatcher("/Cliente.jsp").forward(request, response);
 		} catch (RemoteException e) {
-			request.getSession().setAttribute("error", "show this motha");
+			request.getSession().setAttribute(SessionVars.ERROR_MESSAGE.toString(), "show this motha");
 			request.getRequestDispatcher("/").forward(request, response);
 		}
+	}
+
+	private void setSessionAttrNull(HttpServletRequest request) {
+		request.getSession().setAttribute(SessionVars.ITEMS_PEDIDOS.toString(), null);
+		request.getSession().setAttribute(SessionVars.ERROR_MESSAGE.toString(), null);
+		request.getSession().setAttribute(SessionVars.CLIENTE.toString(), null);
 	}
 
 	protected void dispatch(String strPage, HttpServletRequest objRequest, HttpServletResponse objResponse) throws ServletException, IOException

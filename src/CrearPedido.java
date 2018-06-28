@@ -4,6 +4,7 @@ import dtos.ArticuloDTO;
 import dtos.ClienteDTO;
 import dtos.ItemPedidoDTO;
 import dtos.PedidoDTO;
+import utils.SessionVars;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -30,7 +31,7 @@ public class CrearPedido extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         String action = req.getParameter("action");
-        List<ItemPedidoDTO> itemsPedidos = (List<ItemPedidoDTO>) session.getAttribute("itemsPedidos");
+        List<ItemPedidoDTO> itemsPedidos = (List<ItemPedidoDTO>) session.getAttribute(SessionVars.ITEMS_PEDIDOS.toString());
         String url = "";
         if(!action.equals("CHECKOUT")){
             if(action.equals("ADD")){
@@ -39,14 +40,14 @@ public class CrearPedido extends HttpServlet {
             if(action.equals("DELETE")){
                 itemsPedidos.remove(req.getParameter("delindex"));
             }
-            session.setAttribute("itemsPedidos", itemsPedidos);
+            session.setAttribute(SessionVars.ITEMS_PEDIDOS.toString(), itemsPedidos);
             url="/CrearPedido.jsp";
         }else{
             PedidoDTO pedidoDTO = new PedidoDTO(
-                    (ClienteDTO)session.getAttribute("cliente"),
+                    (ClienteDTO)session.getAttribute(SessionVars.CLIENTE.toString()),
                     req.getParameter("domicilio-entrega"),
                     itemsPedidos);
-            session.setAttribute("pedidoId",PedidoDelegate.getInstance().crearPedido(pedidoDTO));
+            session.setAttribute(SessionVars.PEDIDO.toString(),PedidoDelegate.getInstance().crearPedido(pedidoDTO));
             url="/Cliente.jsp";
         }
         ServletContext sc = getServletContext();
