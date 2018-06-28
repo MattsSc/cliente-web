@@ -49,14 +49,6 @@
                     </div>
                 </div>
 
-                <!-- Name -->
-                <div class="control-group">
-                    <label class="control-label" for="domicilio">Domicilio entrega</label>
-                    <div class="controls">
-                        <input type="text" id="domicilio" name="domicilio" value="" class="span3">
-                    </div>
-                </div>
-
                 <br/>
                 <h4>Agregar Articulos</h4>
                     <div class="control-group">

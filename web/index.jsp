@@ -1,8 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import="dtos.ClienteDTO" %>
-<%@ page import="delegates.ClienteDelegate" %>
-<%@ page import="java.rmi.RemoteException" %>
-<%@ page import="java.io.IOException" %>
 <!DOCTYPE html>
 <html>
 	<link rel="stylesheet" href="./bootstrap-4.1.1-dist/css/bootstrap.css">

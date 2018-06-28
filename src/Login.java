@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
 			Integer DNI = Integer.valueOf(request.getParameter("dni"));
 			ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
 			request.getSession().setAttribute("cliente", dada);
-			request.getRequestDispatcher("/CrearPedido.jsp").forward(request, response);
+			request.getRequestDispatcher("/Cliente.jsp").forward(request, response);
 		} catch (RemoteException e) {
 			request.getSession().setAttribute("error", "show this motha");
 			request.getRequestDispatcher("/").forward(request, response);
