@@ -2,6 +2,8 @@
 <%@ page import="dtos.PedidoDTO" %>
 <%@ page import="delegates.PedidoDelegate" %>
 <%@ page import="dtos.ClienteDTO" %>
+<%@ page import="dtos.MovimientoCCDTO" %>
+<%@ page import="delegates.ClienteDelegate" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -18,6 +20,7 @@
 	<%
 		ClienteDTO clienteDTO = (ClienteDTO) request.getSession().getAttribute("cliente");
 		List<PedidoDTO> pedidos = PedidoDelegate.getInstance().obtenerPedidosPorCliente(clienteDTO.getDni());
+		List<MovimientoCCDTO> movs = ClienteDelegate.getInstance().obtenerMovDeCliente(clienteDTO.getDni());
 	%>
 		<div id="wrapper" class="animate">
 			<nav class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
@@ -40,6 +43,17 @@
 				</div>
 			</nav>
 			<div class="container-fluid">
+				<%if(request.getSession().getAttribute("pedidoId") != null){ %>
+				<div class="alert alert-success" role="alert">
+					<h4 class="alert-heading">Gracias!</h4>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<p>El pedido ha sido recibido, Su numero de pedido es <strong> <%= request.getSession().getAttribute("pedidoId") %> </strong>. </p>
+					<hr>
+					<p class="mb-0">Si tiene alguna duda o consulta comuniquese al 0-800-NOIMPORTA.</p>
+				</div>
+				<% request.getSession().setAttribute("pedidoId", null); ;} %>
 				<div class="row">
 					<div class="col">
 						<div class="card">
@@ -75,35 +89,25 @@
 					<div class="col">
 						<div class="card">
 							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
+								<h5 class="card-title">Mov. de cuenta</h5>
 								<table class="table">
 									<thead>
 									<tr>
-										<th scope="col">#</th>
-										<th scope="col">First</th>
-										<th scope="col">Last</th>
-										<th scope="col">Handle</th>
+										<th scope="col">Fecha</th>
+										<th scope="col">Tipo</th>
+										<th scope="col">Importe</th>
 									</tr>
 									</thead>
 									<tbody>
+									<%
+										for(int index = 0 ; index <  movs.size() ; index++){
+											MovimientoCCDTO mov = movs.get(index);%>
 									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
+										<td><%= mov.getFecha()  %></td>
+										<td><%= mov.getTipo() %></td>
+										<td>$<%= mov.getImporte() %></td>
 									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
+									<%}%>
 									</tbody>
 								</table>
 							</div>

@@ -4,6 +4,7 @@ import dtos.ArticuloDTO;
 import dtos.ClienteDTO;
 import dtos.ItemPedidoDTO;
 import dtos.PedidoDTO;
+import javafx.scene.control.IndexRange;
 import utils.SessionVars;
 
 import javax.servlet.RequestDispatcher;
@@ -38,7 +39,11 @@ public class CrearPedido extends HttpServlet {
                 itemsPedidos = agregarPedido(req, itemsPedidos);
             }
             if(action.equals("DELETE")){
-                itemsPedidos.remove(req.getParameter("delindex"));
+                Integer index = Integer.valueOf(req.getParameter("delindex"));
+                for(int i = 0 ; i < itemsPedidos.size(); i++){
+                    if(i == index)
+                        itemsPedidos.remove(itemsPedidos.get(i));
+                }
             }
             session.setAttribute(SessionVars.ITEMS_PEDIDOS.toString(), itemsPedidos);
             url="/CrearPedido.jsp";
