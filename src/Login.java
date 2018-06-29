@@ -27,10 +27,16 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			setSessionAttrNull(request);
-			Integer DNI = Integer.valueOf(request.getParameter("dni"));
-			ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
-			request.getSession().setAttribute(SessionVars.CLIENTE.toString(), dada);
-			request.getRequestDispatcher("/Cliente.jsp").forward(request, response);
+			String url = "";
+			if(request.getParameter("dni").equals("COMPRA")){
+				url = "/Compra.jsp";
+			}else{
+				Integer DNI = Integer.valueOf(request.getParameter("dni"));
+				ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
+				request.getSession().setAttribute(SessionVars.CLIENTE.toString(), dada);
+				url = "/Cliente.jsp";
+			}
+			request.getRequestDispatcher(url).forward(request, response);
 		} catch (RemoteException e) {
 			request.getSession().setAttribute(SessionVars.ERROR_MESSAGE.toString(), "show this motha");
 			request.getRequestDispatcher("/").forward(request, response);
