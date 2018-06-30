@@ -25,7 +25,7 @@
 			function validate(){
                 $("#input").get(0).setCustomValidity("");
 			    var value = $("#input").val();
-			   if(value != ""  && (value == "COMPRA" || isNumber(value))){
+			   if(value != ""  && (value == "COMPRA" || value == "DESP" ||isNumber(value))){
                    $("#input").get(0).setCustomValidity("");
 			   }else{
                    $("#input").get(0).setCustomValidity("Solo nùmeros.");

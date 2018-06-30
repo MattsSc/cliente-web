@@ -30,6 +30,9 @@ public class Login extends HttpServlet {
 			String url = "";
 			if(request.getParameter("dni").equals("COMPRA")){
 				url = "/Compra.jsp";
+			}
+			if(request.getParameter("dni").equals("DESP")){
+				url = "/Despacho.jsp";
 			}else{
 				Integer DNI = Integer.valueOf(request.getParameter("dni"));
 				ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
