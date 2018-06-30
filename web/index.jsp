@@ -15,7 +15,7 @@
                 </div>
             <% } %>
 			<label for="input" class="sr-only">D.N.I.</label>
-			<input type="text" id="input" class="form-control" name="dni" placeholder="DNI" required="" autofocus="" onblur="validate()">
+			<input type="text" id="input" class="form-control" name="dni" placeholder="Usuario" required="" autofocus="" onblur="validate()">
 			<button class="btn btn-success btn-lg btn-block" type="submit">Sign In</button>
 			<p class="mt-5 mb-3">TP AD Grupo 2 º 2017-2018 Associated with Anonymous</p>
 		</form>
@@ -25,7 +25,7 @@
 			function validate(){
                 $("#input").get(0).setCustomValidity("");
 			    var value = $("#input").val();
-			   if(value != ""  && (value == "COMPRA" || value == "DESP" ||isNumber(value))){
+			   if(value != ""  && (value == "COMPRA" || value == "DESP" || isNumber(value))){
                    $("#input").get(0).setCustomValidity("");
 			   }else{
                    $("#input").get(0).setCustomValidity("Solo nùmeros.");

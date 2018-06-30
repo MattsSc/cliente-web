@@ -21,8 +21,6 @@ public class Login extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -30,14 +28,15 @@ public class Login extends HttpServlet {
 			String url = "";
 			if(request.getParameter("dni").equals("COMPRA")){
 				url = "/Compra.jsp";
-			}
-			if(request.getParameter("dni").equals("DESP")){
-				url = "/Despacho.jsp";
 			}else{
-				Integer DNI = Integer.valueOf(request.getParameter("dni"));
-				ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
-				request.getSession().setAttribute(SessionVars.CLIENTE.toString(), dada);
-				url = "/Cliente.jsp";
+				if(request.getParameter("dni").equals("DESP")){
+					url = "/Despacho.jsp";
+				}else{
+					Integer DNI = Integer.valueOf(request.getParameter("dni"));
+					ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
+					request.getSession().setAttribute(SessionVars.CLIENTE.toString(), dada);
+					url = "/Cliente.jsp";
+				}
 			}
 			request.getRequestDispatcher(url).forward(request, response);
 		} catch (RemoteException e) {
