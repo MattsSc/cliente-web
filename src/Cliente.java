@@ -24,10 +24,8 @@ public class Cliente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getParameter("logout") != null){
-            req.getSession().setAttribute(SessionVars.CLIENTE.toString(),null);
-            ServletContext sc = getServletContext();
-            RequestDispatcher rd = sc.getRequestDispatcher("/");
-            rd.forward(req, resp);
+            req.getSession().removeAttribute(SessionVars.CLIENTE.toString());
+            resp.sendRedirect(req.getContextPath() + "/index.jsp");
         }else{
             ClienteDTO clienteDTO = (ClienteDTO) req.getSession().getAttribute(SessionVars.CLIENTE.toString());
             List<PedidoDTO> pedidoDTOS = PedidoDelegate.getInstance().obtenerPedidosPorCliente(clienteDTO.getDni());

@@ -38,7 +38,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="stockBtn"  style="font-size: 20px;">
                             <i class="fas fa-database"></i>
-                            Stock
+                            Entrada de Stock
                         </a>
                     </li>
                 </ul>
@@ -53,6 +53,10 @@
 
     <div id="despachoCompletar" style="display: none;">
         <jsp:include page="CompletarPedidos.jsp"/>
+    </div>
+
+    <div id="completarOc" style="display: none;">
+        <jsp:include page="CompletarOc.jsp"/>
     </div>
 
 </div>
@@ -73,13 +77,17 @@
             $("#pedidosBtn").click(function(){
                 showDespachar();
                 ocultarCompletar();
+                ocultarCompletarStock();
             });
             $("#pedidosCompletarBtn").click(function(){
                 showCompletar();
                 ocultarDespachar();
+                ocultarCompletarStock();
             });
             $("#stockBtn").click(function(){
-
+                showCompletarStock();
+                ocultarDespachar();
+                ocultarCompletar();
             });
         });
 
@@ -101,6 +109,16 @@
         function ocultarDespachar() {
             $("#despachoPedido").hide();
             $("#pedidosBtn").removeClass("active");
+        }
+
+        function showCompletarStock() {
+            $("#completarOc").show();
+            $("#stockBtn").addClass("active");
+        }
+
+        function ocultarCompletarStock() {
+            $("#completarOc").hide();
+            $("#stockBtn").removeClass("active");
         }
 
     </script>

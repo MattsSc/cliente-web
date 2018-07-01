@@ -27,18 +27,18 @@ public class Login extends HttpServlet {
 			setSessionAttrNull(request);
 			String url = "";
 			if(request.getParameter("dni").equals("COMPRA")){
-				url = "/Compra.jsp";
+				url = "Compra.jsp";
 			}else{
 				if(request.getParameter("dni").equals("DESP")){
-					url = "/Despacho.jsp";
+					url = "Despacho.jsp";
 				}else{
 					Integer DNI = Integer.valueOf(request.getParameter("dni"));
 					ClienteDTO dada = ClienteDelegate.getInstance().obtenerCliente(DNI);
 					request.getSession().setAttribute(SessionVars.CLIENTE.toString(), dada);
-					url = "/Cliente.jsp";
+					url = "Cliente.jsp";
 				}
 			}
-			request.getRequestDispatcher(url).forward(request, response);
+			response.sendRedirect(request.getContextPath() + url);
 		} catch (RemoteException e) {
 			request.getSession().setAttribute(SessionVars.ERROR_MESSAGE.toString(), "show this motha");
 			request.getRequestDispatcher("/").forward(request, response);
