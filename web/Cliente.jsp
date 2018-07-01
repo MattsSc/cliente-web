@@ -133,7 +133,7 @@
                                         <tr>
 											<td><%= pedido.getId() %></td>
                                             <td><%= pedido.getFechaSolicitudOrden() %></td>
-                                            <td><%= pedido.getEstado() %></td>
+                                            <td><%= pedido.getEstado() == "DESPACHABLE" ? "APROBADO" : pedido.getEstado()  %></td>
                                             <td><%= pedido.getFechaEntrega() != null ? pedido.getFechaEntrega() : "-" %></td>
                                         </tr>
                                     <%}%>

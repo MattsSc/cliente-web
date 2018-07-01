@@ -69,7 +69,7 @@
                                     <select class="custom-select d-block w-100" name="product" id="product" required>
                                         <option value="">Elige Articulo...</option>
                                         <%for(ArticuloDTO articuloDTO : articuloDTOList){%>
-                                        <option value="<%out.print(articuloDTO.getCodigo());%>"><%out.print(articuloDTO.getDescripcion());%></option>
+                                        <option value="<%= articuloDTO.getCodigo() %>"><%= articuloDTO.getDescripcion()%></option>
                                         <%}%>
                                     </select>
                                 </div>
