@@ -120,6 +120,7 @@
 								<table class="table">
 									<thead>
 									<tr>
+										<th scope="col">Id</th>
 										<th scope="col">Fecha Solicitud</th>
 										<th scope="col">Estado</th>
 										<th scope="col">Fecha Entrega</th>
@@ -130,6 +131,7 @@
                                         for(int index = 0 ; index <  pedidos.size() ; index++){
                                             PedidoDTO pedido = pedidos.get(index);%>
                                         <tr>
+											<td><%= pedido.getId() %></td>
                                             <td><%= pedido.getFechaSolicitudOrden() %></td>
                                             <td><%= pedido.getEstado() %></td>
                                             <td><%= pedido.getFechaEntrega() != null ? pedido.getFechaEntrega() : "-" %></td>

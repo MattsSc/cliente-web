@@ -34,6 +34,7 @@ public class CrearPedido extends HttpServlet {
         String action = req.getParameter("action");
         List<ItemPedidoDTO> itemsPedidos = (List<ItemPedidoDTO>) session.getAttribute(SessionVars.ITEMS_PEDIDOS.toString());
         String url = "";
+
         if(!action.equals("CHECKOUT")){
             if(action.equals("ADD")){
                 itemsPedidos = agregarPedido(req, itemsPedidos);
@@ -41,20 +42,29 @@ public class CrearPedido extends HttpServlet {
             if(action.equals("DELETE")){
                 Integer index = Integer.valueOf(req.getParameter("delindex"));
                 for(int i = 0 ; i < itemsPedidos.size(); i++){
-                    if(i == index)
-                        itemsPedidos.remove(itemsPedidos.get(i));
+                    if(i == index){
+                        ItemPedidoDTO item =itemsPedidos.get(i);
+                        Float total = (Float) req.getSession().getAttribute("total");
+                        total = total - (item.getArticulo().getPrecio() * item.getCantidad());
+                        req.getSession().setAttribute("total", total);
+                        itemsPedidos.remove(item);
+                    }
                 }
             }
             session.setAttribute(SessionVars.ITEMS_PEDIDOS.toString(), itemsPedidos);
             url="/CrearPedido.jsp";
         }else{
-            PedidoDTO pedidoDTO = new PedidoDTO(
-                    (ClienteDTO)session.getAttribute(SessionVars.CLIENTE.toString()),
-                    req.getParameter("domicilio-entrega"),
-                    itemsPedidos);
-            session.setAttribute(SessionVars.PEDIDO.toString(),PedidoDelegate.getInstance().crearPedido(pedidoDTO));
-            url="/Cliente.jsp";
+            if(!itemsPedidos.isEmpty()){
+                req.getSession().removeAttribute("total");
+                PedidoDTO pedidoDTO = new PedidoDTO(
+                        (ClienteDTO)session.getAttribute(SessionVars.CLIENTE.toString()),
+                        req.getParameter("domicilio-entrega"),
+                        itemsPedidos);
+                session.setAttribute(SessionVars.PEDIDO.toString(),PedidoDelegate.getInstance().crearPedido(pedidoDTO));
+                url="/Cliente.jsp";
+            }
         }
+
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(req, resp);
@@ -65,6 +75,8 @@ public class CrearPedido extends HttpServlet {
         if(itemsPedidos == null){
             itemsPedidos = new ArrayList();
             itemsPedidos.add(item);
+            Float total = item.getArticulo().getPrecio() * item.getCantidad();
+            req.getSession().setAttribute("total", total);
         }else{
             boolean found = false;
             for(ItemPedidoDTO itemPedidoDTO: itemsPedidos){
@@ -76,6 +88,9 @@ public class CrearPedido extends HttpServlet {
             if(!found){
                 itemsPedidos.add(item);
             }
+            Float total = (Float) req.getSession().getAttribute("total");
+            total = total + (item.getArticulo().getPrecio() * item.getCantidad());
+            req.getSession().setAttribute("total", total);
         }
         return itemsPedidos;
     }

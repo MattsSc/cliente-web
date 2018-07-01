@@ -6,10 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="./bootstrap-4.1.1-dist/css/b.css">
+    <link rel="stylesheet" href="./bootstrap-4.1.1-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bootstrap-4.1.1-dist/css/cliente.css">
+    <link rel="stylesheet" href="./bootstrap-4.1.1-dist/css/font-awesome-all.css">
     <script type='text/javascript' src='./bootstrap-4.1.1-dist/js/jquery.js'></script>
     <script type='text/javascript' src='./bootstrap-4.1.1-dist/js/bootstrap.js'></script>
+    <script type='text/javascript' src='./bootstrap-4.1.1-dist/js/font-awesome-all.js'></script>
 </head>
 <body style="background: gainsboro;">
 <%
@@ -46,50 +48,44 @@
                         <legend class="">Crear Pedido</legend>
                     </div>
 
-                    <!-- Name -->
-                    <div class="control-group">
-                        <label class="control-label" for="username">Nombre</label>
-                        <div class="controls">
-                            <input type="text" id="username" name="username" value="<% out.print(nombre); %>" class="span3" disabled>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Nombre</label>
+                                <input type="text" class="form-control" id="inputEmail4" value="<%= clienteDTO.getNombre() %>" disabled>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Apellido</label>
+                                <input type="text" class="form-control" id="inputPassword4" value="<%= clienteDTO.getApellido() %>" disabled>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Card Number -->
-                    <div class="control-group">
-                        <label class="control-label" for="dni">DNI</label>
-                        <div class="controls">
-                            <input type="text" id="dni" name="dni" value="<% out.print(clienteDTO.getDni());%>" class="span3" disabled>
-                        </div>
-                    </div>
-
-                    <!-- CVV -->
-                    <div class="control-group">
-                        <label class="control-label" for="razon_social">Razon Social</label>
-                        <div class="controls">
-                            <input type="text" id="razon_social" name="razon_social" value="<% out.print(clienteDTO.getRazonSocial());%>" class="span3" disabled>
-                        </div>
-                    </div>
+                    </form>
 
                     <br/>
                     <h4>Agregar Articulos</h4>
-                        <div class="control-group">
-                        <label class="control-label" for="product">Producto</label>
-                            <div class="controls">
-                                <form action="CrearPedido" method="POST">
-                                    <select class="span3" name="product" id="product">
-                                        <option></option>
+                        <form action="CrearPedido" method="POST">
+                            <div class="form-row">
+                                <div class="col-7">
+                                    <select class="custom-select d-block w-100" name="product" id="product">
+                                        <option value="">Elige Articulo...</option>
                                         <%for(ArticuloDTO articuloDTO : articuloDTOList){%>
                                         <option value="<%out.print(articuloDTO.getCodigo());%>"><%out.print(articuloDTO.getDescripcion());%></option>
                                         <%}%>
                                     </select>
-                                    <input type="number" id="cant" name="cant" placeholder="0" class="span2" required>
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="cant" name="cant" placeholder="0" class="form-control" min="0" required>
                                     <input type="hidden" name="action" value="ADD">
-                                    <button class="btn btn-success">Agregar</button>
-                                </form>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-info">Agregar <i class="fas fa-cart-plus"></i></button>
+                                </div>
                             </div>
-                        </div>
-                    <jsp:include page="Cart.jsp" flush="true" />
+                        </form>
                 </fieldset>
+                <br/>
+                <br/>
+                <jsp:include page="Cart.jsp" flush="true" />
             </div>
         </div>
     </div>
