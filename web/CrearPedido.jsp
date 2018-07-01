@@ -66,7 +66,7 @@
                         <form action="CrearPedido" method="POST">
                             <div class="form-row">
                                 <div class="col-7">
-                                    <select class="custom-select d-block w-100" name="product" id="product">
+                                    <select class="custom-select d-block w-100" name="product" id="product" required>
                                         <option value="">Elige Articulo...</option>
                                         <%for(ArticuloDTO articuloDTO : articuloDTOList){%>
                                         <option value="<%out.print(articuloDTO.getCodigo());%>"><%out.print(articuloDTO.getDescripcion());%></option>
