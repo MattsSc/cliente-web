@@ -60,6 +60,7 @@ public class CrearPedido extends HttpServlet {
                         (ClienteDTO)session.getAttribute(SessionVars.CLIENTE.toString()),
                         req.getParameter("domicilio-entrega"),
                         itemsPedidos);
+                session.removeAttribute(SessionVars.ITEMS_PEDIDOS.toString());
                 session.setAttribute(SessionVars.PEDIDO.toString(),PedidoDelegate.getInstance().crearPedido(pedidoDTO));
                 url="/Cliente.jsp";
             }
