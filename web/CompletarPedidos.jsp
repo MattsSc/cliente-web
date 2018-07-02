@@ -88,6 +88,11 @@
         return $('table > tbody > tr.table-primary').get(0).id;
     }
 
+    $("#formCompletar").submit(function(){
+        alert("El pedido ha sido completado!");
+    });
+
+
 </script>
 
 </body>

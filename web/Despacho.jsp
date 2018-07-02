@@ -41,6 +41,12 @@
                             Entrada de Stock
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="ajusteBtn"  style="font-size: 20px;">
+                            <i class="fas fa-wrench"></i>
+                            Notificar Ajuste
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -57,6 +63,10 @@
 
     <div id="completarOc" style="display: none;">
         <jsp:include page="CompletarOc.jsp"/>
+    </div>
+
+    <div id="ajusteStock" style="display: none;">
+        <jsp:include page="AjusteStock.jsp"/>
     </div>
 
 </div>
@@ -78,18 +88,37 @@
                 showDespachar();
                 ocultarCompletar();
                 ocultarCompletarStock();
+                ocultarAjuste();
             });
             $("#pedidosCompletarBtn").click(function(){
                 showCompletar();
                 ocultarDespachar();
                 ocultarCompletarStock();
+                ocultarAjuste();
             });
             $("#stockBtn").click(function(){
                 showCompletarStock();
                 ocultarDespachar();
                 ocultarCompletar();
+                ocultarAjuste();
+            });
+            $("#ajusteBtn").click(function(){
+                showAjuste();
+                ocultarDespachar();
+                ocultarCompletar();
+                ocultarCompletarStock();
             });
         });
+
+        function showAjuste() {
+            $("#ajusteStock").show();
+            $("#ajusteBtn").addClass("active");
+        }
+
+        function ocultarAjuste() {
+            $("#ajusteStock").hide();
+            $("#ajusteBtn").removeClass("active");
+        }
 
         function showCompletar() {
             $("#despachoCompletar").show();

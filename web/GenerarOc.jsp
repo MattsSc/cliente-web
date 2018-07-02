@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Generar Orden de Compra</h4>
-            <form action="Compra" method="POST">
+            <form id="generarOcForm" action="Compra" method="POST">
                 <div class="col-md-4 mb-3">
                     <label for="product">Articulo</label>
                     <select class="custom-select d-block w-100" name="product" id="product" required="">
@@ -62,7 +62,7 @@
                 <input type="hidden" name="action" value="CREATE">
                 <button class="btn btn-success" type="submit">Generar</button>
             </form>
-            <form action="Compra" method="POST">
+            <form id="AsignarOcForm" action="Compra" method="POST">
                 <input type="hidden" name="action" value="UPDATE">
                 <button class="btn btn-info" type="submit">Asignar OCs</button>
             </form>
@@ -86,6 +86,15 @@
             success: function(proveedores){
                 proveedores.forEach(prov => $("#proveedores").append('<li class="list-group-item d-flex justify-content-between lh-condensed"><div><h6 class="my-0">' + prov.proveedorDTO.nombre + '</h6><small class="text-muted">' + prov.proveedorDTO.cuit  +'</small></div><span class="text-muted">$'+  prov.total  +'</span></li>'));}});
     });
+
+    $("#AsignarOcForm").submit(function(){
+        alert("Se ha intentado asignar Ordenes de compra abiertas a las ordenes de pedido.");
+    });
+
+    $("#generarOcForm").submit(function(){
+        alert("Se ha generado la Orden de compra!.");
+    });
+
 </script>
 
 
